@@ -1,8 +1,14 @@
 function! s:breakline(n, motion_wiseness) abort
   if a:n > 0
     let v = operator#user#visual_command_from_wise_name(a:motion_wiseness)
-    silent execute printf('silent normal! `[%s`]"', v)
-    silent execute printf(":'<,'>s/.\\{%s}\\zs/\\r/g", a:n)
+    try
+      execute printf('normal! `[%s`]"', v)
+      execute printf('s/.\{%s}\zs/\r/g', a:n)
+    catch /^Vim\%((\a\+)\)\=:E486:/
+      " Pattern not found: means that the text is shorter than 'n' so ignore
+    finally
+      execute "normal! \<esc>"
+    endtry
   endif
 endfunction
 
