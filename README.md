@@ -2,12 +2,21 @@
 
 Like `gq` but break a line even on words.
 
-## Example
+## Usage
+
+This plugin does not provide actual mappings so define these by yourself like:
 
 ```vim
-map Gq <Plug>(operator-breakline-textwidth)
-map GQ <Plug>(operator-breakline-manual)
+" The following mappings use the value of 'textwidth'
+nmap <C-g>q <Plug>(operator-breakline-textwidth)
+xmap <C-g>q <Plug>(operator-breakline-textwidth)
+
+" The following mappings shows prompt to ask the value
+nmap <C-g>Q <Plug>(operator-breakline-manual)
+xmap <C-g>Q <Plug>(operator-breakline-manual)
 ```
+
+_Note: this plugin silently fails when the target text is shorter than the length you've specified._
 
 ## Requirements
 
